@@ -157,26 +157,28 @@
       //get n, or max
       var max = (this.attributes['n'])-1;
       var board = this.attributes;
+      console.log(board)
       console.log(max, 'max');
       //always first row, (0)
       var row = 0;
       //columm = argument
       var col = mDCIFR
       var count = 0; //global count
+      console.log(row, col, "FIRST ROW AND COL")
       var recurse = function(row, col){ 
         console.log(row, col, 'vars') 
-        if(col < 0 || row < 0) {
+        while(col < 0){
           row++;
           col++;
-          recurse(row, col);
-        }     //recursive function
-        console.log(this.attributes)
+        }     
         if(board[row][col] === 1){
+          console.log("TICK", board[row][col])
           count++;
         }
         row++;
         col++;
-        if(col < max && row < max){
+        if(col <= max && row <= max){
+          console.log(row, col, max, count, "row, col, max, count")
           recurse(row, col);
         }
       }
@@ -184,19 +186,25 @@
       if(count > 1) {
         return true;
       }
-
-        //if there is a value here, 
-          //count++
-        //column/row++
-        //recurse(col/row)
-      //if count > 1 return true
-      //return false
       return false; // fixme
     },
  
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function () {
-      return false; // fixme
+      var result = false;
+      //get max-1
+      var board = this.attributes.n;
+      var max = board - 1;
+      for(var x = (-max); x < board; x++){
+        var temp = this.hasMajorDiagonalConflictAt(x)
+        if(temp){
+          result = true;
+        }
+      }
+      //for x = -max to max (-3,-2,-1,0,1,2,3){
+        //fuction(x)
+      
+      return result; // fixme
     },
  
  
@@ -205,13 +213,23 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function (minorDiagonalColumnIndexAtFirstRow) {
+    hasMinorDiagonalConflictAt: function (minorDiagonalColumnIndexAtFirstRow) { //minorDiagonalColumnIndexAtFirstRow
       return false; // fixme
     },
  
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function () {
-      return false; // fixme
+      var result = false;
+      //get max-1
+      var board = this.attributes.n;
+      var max = board - 1;
+      for(var x = (-max); x < board; x++){
+        var temp = this.hasMajorDiagonalConflictAt(x)
+        if(temp){
+          result = true;
+        }
+      }
+      return result; // fixme
     }
  
     /*--------------------  End of Helper Functions  ---------------------*/
