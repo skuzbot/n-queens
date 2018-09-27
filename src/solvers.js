@@ -28,6 +28,13 @@ var makeMatrix = function(n) {
   }
   return matrix;
 }
+var makeEmptyMatrix = function (n) {
+  return _(_.range(n)).map(function () {
+    return _(_.range(n)).map(function () {
+      return 0;
+    });
+  });
+};
 
 var permutate = function(array) { //given an array
   var result = []; //final array of arrays to be returned as all possible permutations
@@ -67,15 +74,25 @@ window.countNRooksSolutions = function(n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
+  var solution = 0;
+  if(n === 0){
+    return []
+  }
+  if(n===2||n===3){
+    return makeEmptyMatrix(n);
+  }
+
   var matrix = makeMatrix(n);
   var arr = permutate(matrix);
   for(var x=0; x<arr.length; x++){
-    if(!ar)
+    var board = new Board(arr[x])
+    if(!board.hasAnyQueensConflicts()){
+      solution = arr[x];
+    }
   }
   
   
   
-  var solution;
 
   
   
