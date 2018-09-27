@@ -157,28 +157,22 @@
       //get n, or max
       var max = (this.attributes['n'])-1;
       var board = this.attributes;
-      console.log(board)
-      console.log(max, 'max');
       //always first row, (0)
       var row = 0;
       //columm = argument
       var col = mDCIFR
       var count = 0; //global count
-      console.log(row, col, "FIRST ROW AND COL")
       var recurse = function(row, col){ 
-        console.log(row, col, 'vars') 
         while(col < 0){
           row++;
           col++;
         }     
         if(board[row][col] === 1){
-          console.log("TICK", board[row][col])
           count++;
         }
         row++;
         col++;
         if(col <= max && row <= max){
-          console.log(row, col, max, count, "row, col, max, count")
           recurse(row, col);
         }
       }
@@ -213,8 +207,32 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function (minorDiagonalColumnIndexAtFirstRow) { //minorDiagonalColumnIndexAtFirstRow
-      return false; // fixme
+    hasMinorDiagonalConflictAt: function (mDCIAFR) { //minorDiagonalColumnIndexAtFirstRow
+      var max = (this.attributes['n'])-1;
+      var board = this.attributes;
+      var row = 0;
+      var col = mDCIAFR
+      var count = 0; //global count
+      var recurse = function(row, col){ 
+        while(col > max){
+          row++;
+          col--;
+        }     
+        if(board[row][col] === 1){
+          count++;
+        }
+        row++;
+        col--;
+        if(col >= 0 && row <= max){
+          recurse(row, col);
+        }
+      }
+      recurse(row, col);
+      if(count > 1) {
+        return true;
+      }
+      return false; 
+    
     },
  
     // test if any minor diagonals on this board contain conflicts
@@ -223,8 +241,8 @@
       //get max-1
       var board = this.attributes.n;
       var max = board - 1;
-      for(var x = (-max); x < board; x++){
-        var temp = this.hasMajorDiagonalConflictAt(x)
+      for(var x = 0; x <= (max *2); x++){
+        var temp = this.hasMinorDiagonalConflictAt(x)
         if(temp){
           result = true;
         }
