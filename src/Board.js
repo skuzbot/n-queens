@@ -60,6 +60,21 @@
         0 <= colIndex && colIndex < this.get('n')
       );
     },
+    mirrorMe: function(n, something) {
+      max = n-1
+      //if
+
+    },
+    makeMatrix: function(n) {
+      var matrix = [];
+      for(var x=0; x<n; x++){
+        var emptyRow = Array.apply(null, Array(n)).map(Number.prototype.valueOf, 0);
+        emptyRow.splice(x,1,1);
+        matrix.push(emptyRow);
+      }
+      return matrix;
+
+    },
  
  
     /*
