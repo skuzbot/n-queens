@@ -10,15 +10,7 @@
 // (There are also optimizations that will allow you to skip a lot of the dead search space)
 // take a look at solversSpec.js to see what the tests are expecting
 
-
-// return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
-
-// mirror solution function(){
-
-//}
-// if n = even, only have to n/2 cards
-//if n is odd, Math.ceil(n/2) cards
-//for each solution. return mirrored solution as well.
+// helper functions:
 var makeMatrix = function (n) {
   var matrix = [];
   for (var x = 0; x < n; x++) {
@@ -28,6 +20,7 @@ var makeMatrix = function (n) {
   }
   return matrix;
 };
+
 var makeEmptyMatrix = function (n) {
   return _(_.range(n)).map(function () {
     return _(_.range(n)).map(function () {
@@ -54,6 +47,7 @@ var permutate = function (array) { //given an array
   return perm(array);
 };
 
+//start of solver
 window.findNRooksSolution = function (n) {
 
   var solution = makeMatrix(n); //fixme
